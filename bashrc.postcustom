@@ -11,3 +11,14 @@
 # Example: setting your own PROMPT instead of using the one set
 # by bashrc
 # export PS1=
+SYSTEMUSER() {
+        LASTCMD=$(history 1 | cut -c8-);
+        TITLE=$(echo -n "$USER@" && hostname);
+        echo -ne "\e]2;$TITLE\a\e]1;$TITLE\a";
+
+        branch=$(getGitBranch)
+
+        export PS1="\n[${eLIGHTGREEN}\t${eNC}] :: [${eLIGHTBLUE}\w${eNC}] $branch\n${eLIGHTGREEN}\u${eWHITE}@${eLIGHTGREEN}\h${eWHITE} >${eNC} "
+}
+
+PROMPT_COMMAND=SYSTEMUSER
